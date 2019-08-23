@@ -37,7 +37,7 @@ go
 
 create table tb_vendas_canceladas(
        id_v_cancelada int unique identity(1,1),
-       id_venda int not null,)
+       id_venda int not null)
        go
     
     
@@ -58,6 +58,11 @@ create table tb_vendas_canceladas(
       
       alter table tb_vendas_canceladas
       ADD CONSTRAINT fk_cancelamentos
+      FOREIGN KEY (id_v_cancelada) REFERENCES tb_vendas(id_venda)
+      go
+      
+      alter table tb_vendas_canceladas
+      ADD CONSTRAINT fk_vendas_canceladas
       FOREIGN KEY (id_venda) REFERENCES tb_vendas(id_venda)
       go
       
@@ -91,7 +96,7 @@ insert into tb_produtos values
         go
         
         insert into tb_vendas_canceladas values
-        ('2');
+        ('4');
         go
         
         

@@ -29,7 +29,7 @@ create table tb_vendas(
        )
        go
 
-create table tb_vendas_produtos(
+create table tb_produtos_vendido(
        id_produto_vendido int PRIMARY KEY identity(1,1),
        id_venda int not null,
        id_produtos int not null)
@@ -46,12 +46,12 @@ create table tb_vendas_canceladas(
       FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id_cliente)
     go
     
-    alter table tb_vendas_produtos
+    alter table tb_produtos_vendido
       ADD CONSTRAINT fk_produtos_vendidos
       FOREIGN KEY (id_produtos) REFERENCES tb_produtos(id_produtos)
       go
       
-      alter table tb_vendas_produtos
+      alter table tb_produtos_vendido
       ADD CONSTRAINT fk_vendas
       FOREIGN KEY (id_venda) REFERENCES tb_vendas(id_venda)
       go
@@ -83,36 +83,43 @@ insert into tb_produtos values
         
         insert into tb_vendas values
         ('2'),
-        ('4'),
+        ('2'),
         ('1'),
-        ('3'); 
+        ('4')
+        
         go
         
-        insert into tb_vendas_produtos values
+        insert into tb_produtos_vendido values
         ('1','2'),
-        ('2','3'),
+        ('1','3'),
         ('3','4'),
-        ('4','1'); 
+        ('2','1')
+         
         go
         
         insert into tb_vendas_canceladas values
-        ('4');
+        ('3');
         go
         
         
         
      select * from tb_clientes
-     select * from tb_vendas
      select * from tb_produtos
-     select * from tb_vendas_produtos
+     select * from tb_vendas
+     select * from tb_produtos_vendido
      select * from tb_vendas_canceladas
         
         
         
+    select * from tb_vendas as v
+    join tb_clientes as c
+    on v.id_cliente = c.id_cliente   
+     
         
-        
-        
-
+	select *
+	 from tb_clientes as c
+	LEFT JOIN tb_vendas as v
+	on c.id_cliente = v.id_cliente
 
 
 

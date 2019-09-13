@@ -21,7 +21,6 @@ create table tb_vendas(
        id_cliente int not null
       )
         go
-        
        
        create table tb_produtos(
        id_produtos int PRIMARY KEY IDENTITY(1,1),
@@ -36,8 +35,8 @@ create table tb_produtos_vendido(
 go
 
 create table tb_vendas_canceladas(
-       id_v_cancelada int unique identity(1,1),
-       id_venda int not null)
+       id_v_cancelada int primary key identity(1,1),
+       id_venda int unique not null)
        go
     
     
@@ -82,23 +81,28 @@ insert into tb_produtos values
         go
         
         insert into tb_vendas values
-        ('2'),
+        ('1'),
         ('2'),
         ('1'),
-        ('4')
+        ('1')
+       
         
         go
         
         insert into tb_produtos_vendido values
-        ('1','2'),
-        ('1','3'),
-        ('3','4'),
+        ('1','1'),
+        ('2','2'),
+        ('3','1'),
         ('2','1')
+        
          
         go
         
         insert into tb_vendas_canceladas values
-        ('3');
+        ('3'),
+        ('4')
+     
+       
         go
         
         
@@ -116,10 +120,25 @@ insert into tb_produtos values
     on v.id_cliente = c.id_cliente   
      
         
-	select *
+	select c.id_cliente, c.nome
 	 from tb_clientes as c
 	LEFT JOIN tb_vendas as v
 	on c.id_cliente = v.id_cliente
+	where v.id_cliente is null 
 
+
+	select * 
+	from tb_produtos as p
+	left join tb_produtos_vendido as pv
+	on p.id_produtos = pv.id_produtos
+	where pv.id_produtos is null
+	
+	
+	select * from 
+	tb_produtos_vendido as pv
+	right join tb_produtos as p
+	on pv.id_produtos = p.id_produtos
+	where pv.id_produtos is null
+	
 
 

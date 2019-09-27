@@ -119,6 +119,7 @@ insert into tb_produtos values
     join tb_clientes as c
     on v.id_cliente = c.id_cliente   
      
+    go
         
 	select c.id_cliente, c.nome
 	 from tb_clientes as c
@@ -126,6 +127,7 @@ insert into tb_produtos values
 	on c.id_cliente = v.id_cliente
 	where v.id_cliente is null 
 
+	go
 
 	select * 
 	from tb_produtos as p
@@ -133,6 +135,7 @@ insert into tb_produtos values
 	on p.id_produtos = pv.id_produtos
 	where pv.id_produtos is null
 	
+	go
 	
 	select * from 
 	tb_produtos_vendido as pv
@@ -140,5 +143,5 @@ insert into tb_produtos values
 	on pv.id_produtos = p.id_produtos
 	where pv.id_produtos is null
 	
-
+go
 

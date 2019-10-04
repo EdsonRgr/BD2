@@ -12,14 +12,20 @@ go
 
 create table tb_clientes(
        id_cliente int PRIMARY KEY IDENTITY(1,1),
-       nome nvarchar(50) not null
-      )
+       nome varchar(50) not null,
+       endereco varchar(50) not null,
+       fone bigint not null,
+       email varchar (100) not null 
+       )
 go
 
 create table tb_cli_audit(
 	   id_cli_audit int PRIMARY KEY IDENTITY(1,1),
        id_cliente_new int not null ,
        nome_new nvarchar(50) not null,
+       endereco_new varchar(50) not null,
+       fone_new bigint not null,
+       email varchar (100) not null,
        data date
       )
 go
@@ -30,10 +36,10 @@ alter table tb_cli_audit
       go
 
 
-insert into tb_clientes values
-         ('Edson'),
-         ('Gustavo'),
-		('Roger');
+insert into tb_clientes(nome,endereco ,fone ,email) values
+         ('Edson','Rua tal', 999999999, 'edson@gmail.com'),
+         ('Eduardo','Rua tal2', 888888888, 'eduardo@gmail.com'),
+		('Roger',' Ruatal3', 777777777, 'roger@gmail.com')
         go
 
 
@@ -44,20 +50,28 @@ as
 			begin
 			declare @cliId int;
 			declare @cliNome varchar(100);
+			declare @cliEnd varchar (100);
+			declare @cliFone int;
+			declare @cliEmail varchar (100);
 			declare @audit_action varchar(100);
+			
 
 			select @cliId=i.id_cliente from inserted i;
 			select @cliNome=i.nome from inserted i;
+			select @cliEnd=i.endereco from inserted i;
+			select @cliFone=i.fone from inserted i;
+			select @cliEmail=i.email from inserted i;
+			
 
 			set @audit_action ='Registro inserido -- [inserindo o campo de data] .';
 
-			insert into tb_cli_audit values (@cliId,@cliNome,getdate());
+			insert into tb_cli_audit values (@cliId,@cliNome,@cliEnd,@cliFone,@cliEmail,getdate());
 			end
 go
 
 insert into tb_clientes values
-         ('Marcos'),
-         ('Leo');
+         ('Gustavo','Rua de viadin', 999999999 , 'gustavo@gmail.com')
+       
          go
          
         
